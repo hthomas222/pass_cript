@@ -1,0 +1,368 @@
+/* ==========================================================================
+   Cybersecurity Operations Center Theme
+   ========================================================================== */
+
+:root {
+  --cyber-bg: #090d16;
+  --cyber-surface: #111827;
+  --cyber-panel: rgba(17, 24, 39, 0.85);
+  --cyber-border: #1f2937;
+  
+  --cyber-red: #ff3366;
+  --cyber-red-glow: rgba(255, 51, 102, 0.25);
+  --cyber-cyan: #00f0ff;
+  
+  --text-main: #f3f4f6;
+  --text-muted: #6b7280;
+  --text-dim: #4b5563;
+  
+  --font-mono: "Fira Code", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --radius-sm: 6px;
+}
+
+/* Base Setup */
+body {
+  background-color: var(--cyber-bg);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1.5rem;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 51, 102, 0.08) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 24px;
+}
+
+/* Main Container Card */
+.auth-card {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-top: 3px solid var(--cyber-red);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(16px);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 0 30px var(--cyber-red-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 1px;
+  background: var(--cyber-red);
+  box-shadow: 0 0 8px var(--cyber-red);
+}
+
+/* Header Component */
+.header-box {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.system-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--cyber-red);
+}
+
+.status-indicator::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: var(--cyber-red);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--cyber-red);
+}
+
+.header-title {
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.header-subtitle {
+  color: var(--cyber-red);
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  letter-spacing: 0.05em;
+  margin-top: 0.35rem;
+  opacity: 0.9;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 0.85rem;
+  color: var(--cyber-red);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.cyber-input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.25rem;
+  background-color: rgba(9, 13, 22, 0.75);
+  border: 1px solid var(--cyber-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cyber-input:focus {
+  border-color: var(--cyber-red);
+  box-shadow: 0 0 0 3px var(--cyber-red-glow);
+  background-color: rgba(9, 13, 22, 0.95);
+}
+
+.cyber-input::placeholder {
+  color: var(--text-dim);
+}
+
+/* Alert Box */
+.alert-box {
+  background: rgba(255, 51, 102, 0.08);
+  border: 1px solid var(--cyber-red);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--cyber-red);
+}
+
+/* Cyber Button */
+.cyber-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--cyber-red);
+  border: 1px solid var(--cyber-red);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.cyber-btn:hover {
+  background: var(--cyber-red);
+  color: var(--cyber-bg);
+  box-shadow: 0 0 15px var(--cyber-red-glow);
+  transform: translateY(-1px);
+}
+
+/* Status Footer */
+.terminal-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* ==========================================================================
+   Tactile Cyber Action Button
+   ========================================================================== */
+
+.cyber-btn {
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.95rem 1.75rem;
+  
+  /* Cyber Aesthetics: Angular clipped corners */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 12px) 0, 
+    100% 12px, 
+    100% 100%, 
+    12px 100%, 
+    0 calc(100% - 12px)
+  );
+  
+  background: rgba(255, 51, 102, 0.08);
+  border: 1px solid var(--cyber-red);
+  color: var(--text-main);
+  
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Container to center the button */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+/* Tactile Neon Green Cyber Action Button */
+.cyber-btn {
+  position: relative;
+  width: auto; /* Auto width instead of 100% so it centers nicely */
+  min-width: 240px;
+  padding: 0.95rem 1.75rem;
+  
+  /* Cyber Aesthetics: Angular clipped corners */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 12px) 0, 
+    100% 12px, 
+    100% 100%, 
+    12px 100%, 
+    0 calc(100% - 12px)
+  );
+  
+  background: rgba(0, 255, 102, 0.08);
+  border: 1px solid var(--neon-green, #00ff66);
+  color: var(--neon-green, #00ff66);
+  
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Status light inside button */
+.cyber-btn .btn-indicator {
+  width: 6px;
+  height: 6px;
+  background-color: var(--neon-green, #00ff66);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--neon-green, #00ff66);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Arrow prompt icon */
+.cyber-btn .btn-arrow {
+  color: var(--neon-green, #00ff66);
+  transition: transform 0.2s ease;
+}
+
+/* Dynamic Hover State */
+.cyber-btn:hover {
+  background: var(--neon-green, #00ff66);
+  color: #0a0a0c;
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+  transform: translateY(-2px);
+}
+
+.cyber-btn:hover .btn-indicator {
+  background-color: #0a0a0c;
+  box-shadow: none;
+  transform: scale(1.4);
+}
+
+.cyber-btn:hover .btn-arrow {
+  color: #0a0a0c;
+  transform: translateX(4px);
+}
+
+/* Tactile Active/Press State */
+.cyber-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+}
+
+/* Scanline pass-through effect on hover */
+.cyber-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.cyber-btn:hover::before {
+  left: 100%;
+}

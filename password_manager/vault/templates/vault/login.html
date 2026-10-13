@@ -1,0 +1,44 @@
+{% extends "vault/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 style="text-align: center;">pass_script</h1>
+
+<!-- Error Alert Frame -->
+{% if form.errors %}
+<div class="alert-box">
+    <span>[!]</span>
+    <span>AUTH FAILURE</span>
+</div>
+{% endif %}
+
+<!-- Login Form Blueprint -->
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <!-- Username Block -->
+    <div class="form-group">
+        <label class="form-label" for="id_username">Operator:</label>
+        <div class="input-wrapper">
+            <input type="text" id="id_username" name="username" class="cyber-input" autofocus required placeholder="username" autocomplete="off">
+        </div>
+    </div>
+
+    <!-- Password Block -->
+    <div class="form-group">
+        <label class="form-label" for="id_password">Password:</label>
+        <div class="input-wrapper">
+            <input type="password" id="id_password" name="password" class="cyber-input" required placeholder="••••••••">
+        </div>
+    </div>
+
+    <!-- Centered Cyber Action Button -->
+    <div class="btn-container">
+        <button type="submit" class="cyber-btn">
+            <span class="btn-indicator"></span>
+            <span>LOGIN</span>
+            <span class="btn-arrow"></span>
+        </button>
+    </div>
+</form>
+{% endblock %}

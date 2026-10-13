@@ -1,0 +1,98 @@
+<!-- vault/templates/vault/dashboard.html -->
+{% extends "vault/base.html" %}
+
+{% block content %}
+<div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 10px;">
+    <h1 style="margin:0; border:none; padding:0;">Internal_Data</h1>
+    <a href="{% url 'add_password' %}" class="cyber-btn" style="min-width: auto; padding: 8px 16px; font-size: 0.75rem;">
+        <span>NEW_PASS</span>
+        <span class="btn-arrow">+</span>
+    </a>
+</div>
+
+<div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 25px; border-bottom: 1px dashed var(--border-gray); padding-bottom: 10px;">
+    <span style="font-size: 0.7rem; color: var(--text-muted);">SYS_SESSION // SECURED</span>
+    <a href="{% url 'logout' %}" style="color: var(--cyber-red); font-size: 12px; text-decoration: none; font-weight: bold;">[ LOGOUT ]</a>
+</div>
+
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr style="border-bottom: 2px solid var(--neon-green); text-align: left; color: var(--neon-green); font-size: 0.8rem;">
+            <th style="padding: 10px 5px;">TARGET / NODE</th>
+            <th>ACCESS ID</th>
+            <th>CIPHER TEXT STATUS</th>
+            <th style="text-align: right; padding-right: 5px;">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr style="border-bottom: 1px solid var(--border-gray);">
+            <td style="padding: 15px 5px;">
+                <strong style="color: #fff;">{{ entry.website_name }}</strong><br>
+                <small style="color: var(--text-muted); font-size: 0.75rem;">{{ entry.website_url }}</small>
+            </td>
+            <td><code>{{ entry.username_or_email }}</code></td>
+            <td>
+                <span id="pass-field-{{ entry.id }}" data-revealed="false" style="color: var(--cyber-red); font-size: 12px; font-family: monospace;">
+                    [ LOCKED_CIPHER_STRING ]
+                </span>
+            </td>
+            <td style="text-align: right; padding-right: 5px;">
+                <div style="display: inline-flex; gap: 6px; align-items: center; justify-content: flex-end;">
+                    <!-- Decrypt Toggle -->
+                    <button class="cyber-btn" style="min-width: auto; padding: 5px 10px; font-size: 11px;" onclick="revealPassword({{ entry.id }})">
+                        DECRYPT
+                    </button>
+
+                    <!-- Edit Button -->
+                    <a href="{% url 'edit_password' entry.id %}" class="cyber-btn" style="min-width: auto; padding: 5px 10px; font-size: 11px; text-decoration: none;">
+                        EDIT
+                    </a>
+
+                    <!-- Delete Form with Confirmation -->
+                    <form method="POST" action="{% url 'delete_password' entry.id %}" style="display: inline; margin: 0;" onsubmit="return confirm('PERMANENT_PURGE: Are you sure you want to delete {{ entry.website_name }}?');">
+                        {% csrf_token %}
+                        <button type="submit" class="cyber-btn" style="min-width: auto; padding: 5px 10px; font-size: 11px; border-color: var(--cyber-red); color: var(--cyber-red); background: rgba(255, 51, 102, 0.08);">
+                            DEL
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" style="padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+                VAULT_IS_EMPTY. NO_DATA_DETECTED.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function revealPassword(id) {
+    const field = document.getElementById(`pass-field-${id}`);
+    
+    if (field.getAttribute('data-revealed') === 'true') {
+        field.innerText = '[ LOCKED_CIPHER_STRING ]';
+        field.style.color = 'var(--cyber-red)';
+        field.setAttribute('data-revealed', 'false');
+    } else {
+        fetch(`/decrypt/${id}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.password) {
+                    field.innerText = data.password;
+                    field.style.color = 'var(--neon-green)';
+                    field.setAttribute('data-revealed', 'true');
+                } else {
+                    alert("ACCESS_DENIED: Decryption error.");
+                }
+            })
+            .catch(err => {
+                console.error("System connection failure:", err);
+            });
+    }
+}
+</script>
+{% endblock %}
