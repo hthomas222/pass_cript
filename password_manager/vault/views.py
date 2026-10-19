@@ -59,9 +59,7 @@ def edit_password(request, entry_id):
 
         form = VaultEntryForm(instance=entry, initial={"password": initial_password})
 
-    return render(
-        request, "vault/edit_password.html", {"form": form, "entry": entry}
-    )
+    return render(request, "vault/edit_password.html", {"form": form, "entry": entry})
 
 
 @login_required

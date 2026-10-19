@@ -8,29 +8,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vault', '0001_initial'),
+        ("vault", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='vaultentry',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='vault_entries', to=settings.AUTH_USER_MODEL),
+            model_name="vaultentry",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="vault_entries",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='vaultentry',
-            name='username_or_email',
+            model_name="vaultentry",
+            name="username_or_email",
             field=models.CharField(max_length=150),
         ),
         migrations.AlterField(
-            model_name='vaultentry',
-            name='website_name',
+            model_name="vaultentry",
+            name="website_name",
             field=models.CharField(max_length=100),
         ),
         migrations.AlterField(
-            model_name='vaultentry',
-            name='website_url',
+            model_name="vaultentry",
+            name="website_url",
             field=models.URLField(blank=True),
         ),
     ]

@@ -2,8 +2,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class VaultEntry(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vault_entries")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="vault_entries"
+    )
     website_name = models.CharField(max_length=100)
     website_url = models.URLField(blank=True)
     username_or_email = models.CharField(max_length=150)
